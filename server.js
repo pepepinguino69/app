@@ -3,6 +3,27 @@ const express = require("express");
 const productsRouter = require("./routes/routes");
 
 const app = express();
+const luxon= require ("luxon")
+const { DateTime } = require("luxon");
+const jwt = require('jsonwebtoken');
+const multer = require('multer');
+const upload = multer();
+require('crypto').randomBytes(64).toString('hex')->genera el token
+//guardado en el .env
+const dotenv = require('dotenv');
+const  Contenedor  = require('./Contenedor.js').Contenedor
+
+// get config vars
+dotenv.config();
+
+// access config var
+process.env.TOKEN_SECRET;
+function generateAccessToken(username) {
+  return jwt.sign(username, process.env.TOKEN_SECRET, { expiresIn: '1800s' });
+}
+
+
+//let datos = DateTime.now().setZone('America/Argentina/Buenos_Aires').toLocaleString({ month: 'long', day: 'numeric',year:'numeric',hour:'numeric',minute:'numeric' })
 
 app.listen(8080,()=>console.log("server listening on port 8080"));
 app.use(express.json());
